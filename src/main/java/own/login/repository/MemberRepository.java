@@ -12,7 +12,7 @@ public interface MemberRepository {
 
     public List<Member> findAll();
 
-    public boolean findByLoginID(Member member);
+    public Member findByLoginId(String loginId);
 
     public void clear();
 

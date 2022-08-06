@@ -19,7 +19,7 @@ public class MemoryMemberRepository implements MemberRepository {
     public Member save(Member member) {
         member.setId(++sequence);
         map.put(member.getId(), member);
-        return map.get(member.getId());
+        return member;
     }
 
     @Override
@@ -27,14 +27,13 @@ public class MemoryMemberRepository implements MemberRepository {
         return map.get(id);
     }
 
-    public boolean findByLoginID(Member member) {
+    public Member findByLoginId(String loginId) {
         for (Long key : map.keySet()) {
             Member iterMember = map.get(key);
-            if (iterMember.getLoginId().equals(member.getLoginId())) {
-                return iterMember.getLoginPasswd().equals(member.getLoginPasswd());
-            }
+            if (iterMember.getLoginId().equals(loginId))
+                return iterMember;
         }
-        return false;
+        return null;
     }
 
     @Override
