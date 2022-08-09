@@ -17,10 +17,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member save(Member member) {
-        if (findByLoginId(member.getLoginId()) != null) {
-            log.error("중복 loginId 사용!");
-            return null;
-        }
+        memberOverlappingCheck(member);
         return memberRepository.save(member);
     }
 
@@ -36,6 +33,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public boolean checkMember(Member member) {
+        // 인자로 받은 Member의 LoginId와 LoginPasswd가 db정보와 일치하는지 확인.
         Member findMember = findByLoginId(member.getLoginId());
         if (findMember != null) {
             return findMember.getLoginPasswd().equals(member.getLoginPasswd());
@@ -51,5 +49,11 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void clear() {
         memberRepository.clear();
+    }
+
+    private void memberOverlappingCheck(Member member) {
+        if (memberRepository.findByLoginId(member.getLoginId()) != null) {
+                    throw new IllegalStateException("LoginId 중복!");
+        }
     }
 }

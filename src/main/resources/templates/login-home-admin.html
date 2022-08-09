@@ -10,9 +10,20 @@
 <table th:if="${member.grade == T(own.login.domain.Grade).ADMIN}">
     <thead>
     <tr>
-        <th>Id</th> <th>LoginId</th> <th>LoginPasswd</th> <th>Grade</th>
+        <th>Id</th>
+        <th>LoginId</th>
+        <th>LoginPasswd</th>
+        <th>Grade</th>
     </tr>
     </thead>
+    <tbody>
+    <tr th:each="mem, i : ${members}">
+        <td th:text="${mem.id}"></td>
+        <td th:text="${mem.loginId}"></td>
+        <td th:text="${mem.loginPasswd}"></td>
+        <td th:text="${mem.grade}"></td>
+    </tr>
+    </tbody>
 
 </table>
 </body>

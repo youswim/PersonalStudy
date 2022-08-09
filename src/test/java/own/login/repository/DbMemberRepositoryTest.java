@@ -8,9 +8,11 @@ import own.login.domain.Member;
 
 import java.util.List;
 
-class MemoryMemberRepositoryTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+class DbMemberRepositoryTest {
+
+    MemberRepository memberRepository = new DbMemberRepository();
 
     @AfterEach
     void after() {
@@ -72,4 +74,5 @@ class MemoryMemberRepositoryTest {
         Assertions.assertThat(members.size()).isEqualTo(2);
         Assertions.assertThat(members).contains(member1, member2);
     }
+
 }

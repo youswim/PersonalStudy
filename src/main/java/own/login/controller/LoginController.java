@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import own.login.domain.Grade;
 import own.login.domain.Member;
 import own.login.service.MemberService;
+import own.login.service.MemberServiceImpl;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +36,11 @@ public class LoginController {
     public RedirectView loginRequest(@ModelAttribute Member member, RedirectAttributes ra) {
         System.out.println("LoginController.loginRequest");
         if (memberService.checkMember(member)) {
-            ra.addFlashAttribute("member", member);
+            Member findMember = memberService.findByLoginId(member.getLoginId());
+            // 화면 렌더링 시, MEMBER.GRADE 를 사용하기 위해 memberService에서 member를 찾아온다.
+            ra.addFlashAttribute("member", findMember);
+            if(findMember.getGrade() == Grade.ADMIN)
+                ra.addFlashAttribute("members", memberService.findAll());
             return new RedirectView("/login-home", true);
         }
         return new RedirectView("/login", true);
