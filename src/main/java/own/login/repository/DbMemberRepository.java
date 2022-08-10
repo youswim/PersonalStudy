@@ -1,5 +1,6 @@
 package own.login.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import own.login.domain.Member;
 
@@ -10,10 +11,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+//@RequiredArgsConstructor
 public class DbMemberRepository implements MemberRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
+
+//    private final EntityManager em;
 
     @Override
     @Transactional
@@ -35,10 +39,15 @@ public class DbMemberRepository implements MemberRepository {
     @Override
     public Member findByLoginId(String loginId) {
         String query = "select m from Member m where m.loginId=:loginId";
-        return em.createQuery(query, Member.class)
+        List<Member> members = em.createQuery(query, Member.class)
                 .setParameter("loginId", loginId)
-                .getResultList()
-                .get(0);
+                .getResultList();
+        for (Member member : members) {
+            if (member.getLoginId().equals(loginId)) {
+                return member;
+            }
+        }
+        return null;
     }
 
 
@@ -46,5 +55,6 @@ public class DbMemberRepository implements MemberRepository {
     @Transactional
     public void clear() {
         em.createQuery("delete from Member m");
+        em.flush();
     }
 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class MemoryMemberRepository implements MemberRepository {
 
     Map<Long, Member> map = new HashMap<>();

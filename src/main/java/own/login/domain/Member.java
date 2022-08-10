@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -35,5 +36,18 @@ public class Member {
                 ", loginPasswd='" + loginPasswd + '\'' +
                 ", grade=" + grade +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(loginId, member.loginId) && Objects.equals(loginPasswd, member.loginPasswd) && grade == member.grade;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, loginId, loginPasswd, grade);
     }
 }

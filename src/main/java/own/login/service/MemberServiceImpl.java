@@ -54,6 +54,7 @@ public class MemberServiceImpl implements MemberService{
     private void memberOverlappingCheck(Member member) {
         if (memberRepository.findByLoginId(member.getLoginId()) != null) {
                     throw new IllegalStateException("LoginId 중복!");
+                    // 부정 또는 부적절한 때에 메서드가 불려 간 것을 나타냄
         }
     }
 }

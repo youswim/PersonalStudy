@@ -26,12 +26,12 @@ public class LoginApplication implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-
-        Member member = new Member();
-        member.setLoginId("yusiw");
-        member.setLoginPasswd("23123");
-        em.persist(member);
-        
+//
+//        Member member = new Member();
+//        member.setLoginId("yusiw");
+//        member.setLoginPasswd("23123");
+//        em.persist(member);
+//
 
     }
 }
