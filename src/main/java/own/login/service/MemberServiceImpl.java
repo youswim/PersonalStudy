@@ -17,7 +17,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member save(Member member) {
-        memberOverlappingCheck(member);
+        if (memberRepository.findByLoginId(member.getLoginId()) != null) {
+            return null;
+        }
         return memberRepository.save(member);
     }
 
@@ -32,13 +34,15 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean checkMember(Member member) {
+    public Member checkMember(Member member) {
         // 인자로 받은 Member의 LoginId와 LoginPasswd가 db정보와 일치하는지 확인.
         Member findMember = findByLoginId(member.getLoginId());
         if (findMember != null) {
-            return findMember.getLoginPasswd().equals(member.getLoginPasswd());
+            if (member.getLoginPasswd().equals(findMember.getLoginPasswd())) {
+                return findMember;
+            }
         }
-        return false;
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package own.login.domain;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @SequenceGenerator(
         name = "MEMBER_SEQ_GENERATOR",
         sequenceName = "MEMBER_SEQ"
@@ -27,6 +29,17 @@ public class Member {
 
     @Enumerated(value=EnumType.STRING)
     private Grade grade;
+
+    public Member(String loginId, String loginPasswd, Grade grade) {
+        this.loginId = loginId;
+        this.loginPasswd = loginPasswd;
+        this.grade = grade;
+    }
+
+    public Member(String loginId, String loginPasswd) {
+        this.loginId = loginId;
+        this.loginPasswd = loginPasswd;
+    }
 
     @Override
     public String toString() {

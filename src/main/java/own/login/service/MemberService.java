@@ -12,7 +12,7 @@ public interface MemberService {
 
     public List<Member> findAll();
 
-    public boolean checkMember(Member member);
+    public Member checkMember(Member member);
 
     public Member findByLoginId(String loginId);
 

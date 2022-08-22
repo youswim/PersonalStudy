@@ -3,15 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color : #dc3435
+        }
+    </style>
 </head>
 <body>
-로그인
-<form action="/login" method="post">
-    ID : <input type="text" name="loginId"><br>
-    PassWd : <input type="password" name="loginPasswd"><br>
+<h1>로그인 페이지</h1>
+<form action="/member/login" method="post" th:object="${memberLoginForm}">
+
+    ID : <input type="text" name="loginId" th:field="*{loginId}" th:errorclass="field-error"><br>
+    <div th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="field-error"></div>
+    <br>
+    PassWd : <input type="password" name="loginPasswd" th:field="*{loginPasswd}" th:errorclass="field-error"><br>
+    <div th:if="${#fields.hasErrors('loginPasswd')}" th:errors="${memberLoginForm.loginPasswd}" class="field-error"></div>
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <div th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="field-error">로그인 오류 메세지</div>
+    </div>
     <button type="submit">로그인</button>
+
 </form>
-<a href="/new"><button>회원가입</button></a>
+<a href="/member/new"><button>회원가입</button></a>
+
 
 </body>
 </html>
