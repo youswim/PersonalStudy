@@ -27,11 +27,11 @@
 - 로그인 시에, 없는 id이거나 비밀번호가 틀리면 global error로 알려주기.
 - login-home.html과 login-admin.html 통합
 - 로그인 하지 않은 사용자, USER, ADMIN이 같은 login-home.html을 "/"로 공유하도록 만듦
-- 
 
+## V6
+- 세션으로 로그인, 로그아웃 기능 구현
 
 ## 앞으로 할 일
-- 로그인에 세션 도입해보기
 - 다른 사람의 로그인 코드와 내 코드 비교 & 수정
 - repository 의 mock 테스트 만들어보기
 - spring security, jwt

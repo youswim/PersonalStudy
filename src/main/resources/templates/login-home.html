@@ -12,6 +12,11 @@
 <div th:if="${member}==null">
     <a href="/member/login">로그인</a>
 </div>
+<div th:if="${member}!=null">
+    <form action="/member/logout" method="post">
+        <input type="submit" value="로그아웃">
+    </form>
+</div>
 
 <div th:if="${member!=null}and${member.grade == T(own.login.domain.Grade).ADMIN}">
     <table>

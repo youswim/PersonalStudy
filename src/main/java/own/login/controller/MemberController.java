@@ -13,6 +13,11 @@ import own.login.domain.Member;
 import own.login.form.MemberJoinForm;
 import own.login.form.MemberLoginForm;
 import own.login.service.MemberService;
+import own.login.session.SessionConst;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -40,7 +45,10 @@ public class MemberController {
 //    }
 
     @PostMapping("/login")
-    public String loginRequest(@Validated @ModelAttribute MemberLoginForm form, BindingResult bindingResult, RedirectAttributes ra) {
+    public String loginRequest(@Validated @ModelAttribute MemberLoginForm form,
+                               BindingResult bindingResult,
+                               HttpServletRequest req,
+                               RedirectAttributes ra) {
 
         if (bindingResult.hasErrors()) {
             log.info("bindingResult={}", bindingResult);
@@ -56,12 +64,14 @@ public class MemberController {
             log.info("bindingResult={}", bindingResult);
             return "login-form";
         }
-            // 화면 렌더링 시, MEMBER.GRADE 를 사용하기 위해 memberService에서 member를 찾아온다.
+//        화면 렌더링 시, MEMBER.GRADE 를 사용하기 위해 memberService에서 member를 찾아온다.
         ra.addFlashAttribute("member", checkedMember);
 
         if (checkedMember.getGrade() == Grade.ADMIN)
             ra.addFlashAttribute("members", memberService.findAll());
 
+        HttpSession session = req.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, checkedMember);
 //            new RedirectView("/login-home", true);
         return "redirect:/";
     }
@@ -87,5 +97,14 @@ public class MemberController {
             return "/signup-form";
         }
         return "redirect:/member/login";
+    }
+
+    @PostMapping("logout")
+    public String logout(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
     }
 }
