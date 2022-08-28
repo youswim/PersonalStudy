@@ -20,14 +20,15 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-    generator = "MEMBER_SEQ_GENERATOR")
+            generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
     private String loginId;
 
     private String loginPasswd;
 
-    @Enumerated(value=EnumType.STRING)
+
+    @Enumerated(value = EnumType.STRING)
     private Grade grade;
 
     public Member(String loginId, String loginPasswd, Grade grade) {

@@ -73,3 +73,6 @@ https://minchul-son.tistory.com/546
 - error code를 등록해주지 않아서 오류가 계속 생겼었음.
 - thymeleaf에 어떤 인스턴스의 값을 꺼내는 코드가 있다면, view에 인스턴스를 넘겨주거나 null체크를 해야 한다. 안그럼 parsing오류남. 
 
+- @PostConstruct에 @Transactional을 붙이더라도 원하는 것처럼 동작하지 않는다.
+  https://www.inflearn.com/questions/26902 참고
+
