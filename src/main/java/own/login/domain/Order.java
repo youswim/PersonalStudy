@@ -21,10 +21,11 @@ public class Order {
     private Member member;
 
     @OneToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
-    
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     @Enumerated(value = EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(5)")
     private Status status;
 
     private LocalDateTime createdAt;

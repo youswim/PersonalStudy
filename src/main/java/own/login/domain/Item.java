@@ -29,6 +29,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ITEM_SEQ_GENERATOR")
     private Long id;
 
+    @Column(columnDefinition = "VARCHAR(100)")
     private String name;
 
     private Integer price;
@@ -36,6 +37,6 @@ public class Item {
     private Integer quantity;
 
     @Lob
-    private String explanation;
+    private String explain;
 
 }

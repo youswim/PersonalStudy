@@ -23,12 +23,14 @@ public class Member {
             generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
+    @Column(columnDefinition = "VARCHAR(50)")
     private String loginId;
 
+    @Column(columnDefinition = "VARCHAR(50)")
     private String loginPasswd;
 
-
     @Enumerated(value = EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
     private Grade grade;
 
     public Member(String loginId, String loginPasswd, Grade grade) {

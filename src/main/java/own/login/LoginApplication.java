@@ -29,35 +29,21 @@ public class LoginApplication implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
+        test1();
+        test2();
+    }
 
+    private void test1() {
+        Member member3 = new Member(null, "yusiw", null);
+        em.persist(member3);
+    }
+
+    private void test2() {
         Member[] members = new Member[55];
         for (int i = 0; i < 55; i++) {
             Member member3 = new Member(null, "yusiw", null);
             System.out.println("i = " + i);
             em.persist(member3);
         }
-
-
-        System.out.println("============persist============");
-//        em.persist(member1);
-//        em.persist(member2);
-//        em.persist(member3);
-        System.out.println("============end============");
-        test1();
-    }
-
-//    @Transactional
-    public void test1() {
-
-        Member member = new Member(null, "yusiw", null);
-//
-//        em.persist(member);
-    }
-
-    public void test2() {
-
-        Member member = new Member(null, "yusiw", null);
-
-        em.persist(member);
     }
 }
