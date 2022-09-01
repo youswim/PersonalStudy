@@ -39,4 +39,11 @@ public class Item {
     @Lob
     private String explain;
 
+    public void setItem(Item item) {
+        name = item.getName();
+        price = item.getPrice();
+        quantity = item.getQuantity();
+        explain = item.getExplain();
+    }
+
 }

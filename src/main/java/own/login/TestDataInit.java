@@ -23,16 +23,9 @@ public class TestDataInit {
     EntityManager em;
     private final MemberRepository memberRepository;
 
-//    @PostConstruct
-//    public void init() {
-//        memberRepository.save(new Member("qwe", "qwe", Grade.USER));
-//        memberRepository.save(new Member("asd", "asd", Grade.ADMIN));
-//
-//        Item item = new Item();
-//        item.setCreated(LocalDateTime.now());
-//        EntityTransaction tx = em.getTransaction();
-//
-//
-//
-//    }
+    @PostConstruct
+    public void init() {
+        memberRepository.save(new Member("qwe", "qwe", Grade.USER));
+        memberRepository.save(new Member("asd", "asd", Grade.ADMIN));
+    }
 }
