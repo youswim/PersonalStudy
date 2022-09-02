@@ -44,7 +44,7 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public void clear() {
+    public void deleteAll() {
         map.clear();
     }
 }

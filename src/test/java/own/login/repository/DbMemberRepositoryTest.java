@@ -5,27 +5,20 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import own.login.domain.Grade;
 import own.login.domain.Member;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-//@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@ComponentScan
-@DataJpaTest
-@Transactional
+@SpringBootTest
+//@ExtendWith(SpringExtension.class)
+//@ComponentScan
+//@DataJpaTest
 class DbMemberRepositoryTest {
 
 //    @PersistenceContext
@@ -34,9 +27,9 @@ class DbMemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository = new DbMemberRepository();
 
-    @Test
-    void clear() {
-        memberRepository.clear();
+    @AfterEach
+    void after() {
+        memberRepository.deleteAll();
     }
 
     @Test

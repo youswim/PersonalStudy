@@ -9,27 +9,27 @@
 - 공지사항(관리자), 공지사항 댓글(일반)
 - 회원 관리(관리자)
 
-## V1
+## 1. loginV1
 - Member 로그인 기능
 - Map으로 MemoryMemberRepository 구현
 - 코드가 엉망진창
 
-## V2
+## 2. loginV2
 - Service계층 도입. controller에서 하던 ID, Password 확인을 Service로 이동.
 - Service에 loginId 중복 확인 코드 추가. 중복 시에, log.error로 로그 남김
 - 로그인을 위한 POST 요청 후 redirect 코드 추가. 
 - RedirectAttributes를 사용해서 redirect후에도 view 렌더링에 필요한 model 데이터가 유지되도록 함. (https://baeldung-cn.com/spring-web-flash-attributes 참고함)
 
-## V3
+## 3. loginV3
 - 관리자로 로그인 시 다른 사용자의 정보를 표 형태로 출력.
 - 회원가입할 때 LoginId가 겹치는 경우 예외를 발생시켜서 테스트에 용이한 코드 만들기
 - MemberServiceImpl 테스트 코드 생성
 - DbMemberRepository 거의 만듦
 
-## V4
+## 4. loginV4
 - Test 코드에서 em이 주입되지 않는 문제 해결(@SpringBootTest 추가)
 
-## V5
+## 5. loginV5
 - MemberJoinForm(회원가입), MemberLoginForm(로그인)추가해서 회원가입과 로그인을 Validation.
 - 로그인할 때, select문이 두번 나가는 로직 수정.
 - 회원가입 시에, 중복id를 가지는 회원이 있다면 global error로 알려주기.
@@ -37,10 +37,58 @@
 - login-home.html과 login-admin.html 통합
 - 로그인 하지 않은 사용자, USER, ADMIN이 같은 login-home.html을 "/"로 공유하도록 만듦
 
-## V6
+## 6. loginV6
 - 세션으로 로그인, 로그아웃 기능 구현
 
+## 7. loginV7
+- 상품 등록, 주문, 배달에 필요한 Entity 추가.
+
+![loginV7_diagram](./imgs/loginV7_diagram.PNG)  
+
+### 7-1. 엔티티 필드 설명
+모든 엔티티의 ID는 PK를 위한 의미없는 숫자.
+- MEMBER
+  - LOGIN_ID : 로그인을 할 때 사용하는 아이디
+  - LOGIN_PASSWD : 로그인을 할 때 사용하는 비밀번호
+  - GRADE : 사용자가 일반 사용자인지 관리자인지 구분하기 위해 사용
+- ITEM
+  - NAME : 상품 이름
+  - PRICE : 상품 가격
+  - QUANTITY : 상품 재고 갯수
+  - EXPLAIN : 상품 상세 설명
+- ORDER
+  - CREATED_AT : 주문한 날짜, 시간
+  - STATUS : 주문 진행 상태 ( 주문, 판매자 확인, 배송, 배송완료 ... )
+- ORDER_ITEM ( ORDER - ITEM의 N:M관계를 풀어내기 위한 엔티티 )
+  - QUANTITY : 해당 ITEM의 주문 수량
+- DELIVERY
+  - ADDR_MAIN : 도로명 혹은 지번
+  - ADDR_SUB : 상세 주소
+  - DELIVERY_REQ : 배송 요청사항
+### 7-2. 엔티티 관계 설명
+- MEMBER - ORDER
+  - 회원은 여러건의 주문 가능(MEMBER -> ORDER : 1 -> N)
+  - 주문을 하지 않은 회원도 있음(MEMBER의 부분참여)
+  - 한건의 주문은 한명의 회원만 생성 가능(ORDER -> MEMBER : 1 -> 1)
+  - 회원 없이 주문은 불가능(ORDER의 전체참여)
+- ORDER - ITEM ( ORDER_ITEM은 N:M관계를 풀어내기 위한 엔티티이므로 설명 생략 ) 
+  - 한번에 여러 상품을 주문할 수 있음 ( ORDER -> ITEM : 1 -> N )
+  - 상품 없는 주문은 불가능 ( ORDER의 전체참여 )
+  - 한개의 상품은 여러 주문에 쓰일 수 있음 ( ITEM -> ORDER : 1 -> M )
+  - 주문되지 않은 상품도 존재 가능 ( ITEM의 부분참여 )
+- ORDER - DELIVERY
+  - 한개의 주문은 한개의 주소만 가질 수 있음 (ORDER : DELIVERY = 1 : 1)
+  - 모든 주문은 주소를 가져야 하고, 주소정보는 주문 없이 존재할 수 없음 ( 양쪽의 전체참여 )
+
+## 8. ItemV1
+- ItemRepository 구현
+- ItemService 구현
+- ItemController 구현 중
+- Item 등록 조회 수정 (삭제) 페이지 구현
+
 ## 앞으로 할 일
+- ITEM과 MEMBER의 관계 만들기 (ITEM을 등록한 MEMBER가 누구인지. ITEM수정 권한의 확인을 위해서 필요한 작업)
+- explain field의 box 엉망. 수정하기
 - 다른 사람의 로그인 코드와 내 코드 비교 & 수정
 - repository 의 mock 테스트 만들어보기
 - spring security, jwt
@@ -52,6 +100,11 @@
 - MemoryMemberRepository 는 테스트 코드에서 equalTo를 그냥 사용해도 정상적으로 테스트 되었는데, DbMemberRepository 는 euqals 메서드를 오버라이딩하지 않으면 비교가 제대로 되지 않는다. 왜 이런지?
 - em.close는 어디에 넣어야 하는지?
 
+## 고민
+- Item의 수정 시에, Item의 id를 받는 구조로 되어있음.
+악의적인 사용자가 id만 다르게 요청을 보내면 엉뚱한 ITEM정보가 수정됨.
+수정하려는 사용자가 해당 item을 등록한 사용자인지 확인하면 해결 가능할 것으로 보임
+(등록자가 상품을 엉뚱한 내용으로 수정하고 싶어하진 않을 것이므로)
 
 ## 알게된 것
 - https://www.inflearn.com/questions/46858 : EntityManager를 사용하는 Repository의 테스트코드를 작성하는 방법.  
@@ -76,3 +129,4 @@ https://minchul-son.tistory.com/546
 - @PostConstruct에 @Transactional을 붙이더라도 원하는 것처럼 동작하지 않는다.
   https://www.inflearn.com/questions/26902 참고
 
+- RedirectAttribute로 넘긴 인스턴스는 Get 컨트롤러의 Model에 자동으로 담긴다.

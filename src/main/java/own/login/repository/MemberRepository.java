@@ -14,7 +14,7 @@ public interface MemberRepository {
 
     public Member findByLoginId(String loginId);
 
-    public void clear();
+    public void deleteAll();
 
 
 }

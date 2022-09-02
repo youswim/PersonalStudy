@@ -14,7 +14,7 @@ class MemoryMemberRepositoryTest {
 
     @AfterEach
     void after() {
-        memberRepository.clear();
+        memberRepository.deleteAll();
     }
 
     @Test

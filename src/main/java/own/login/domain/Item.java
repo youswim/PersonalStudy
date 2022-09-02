@@ -1,10 +1,7 @@
 package own.login.domain;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Clob;
@@ -16,8 +13,7 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @SequenceGenerator(
         name="ITEM_SEQ_GENERATOR",
         sequenceName = "ITEM_SEQ"
@@ -45,5 +41,7 @@ public class Item {
         quantity = item.getQuantity();
         explain = item.getExplain();
     }
+
+
 
 }

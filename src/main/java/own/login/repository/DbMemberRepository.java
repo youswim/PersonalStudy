@@ -1,11 +1,9 @@
 package own.login.repository;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import own.login.domain.Member;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -53,8 +51,7 @@ public class DbMemberRepository implements MemberRepository {
 
     @Override
     @Transactional
-    public void clear() {
-        em.createQuery("delete from Member m");
-        em.flush();
+    public void deleteAll() {
+        em.createQuery("delete from Member m").executeUpdate();
     }
 }

@@ -1,16 +1,15 @@
 package own.login;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 import own.login.domain.Member;
+import own.login.repository.ItemRepository;
+import own.login.repository.MemberRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Slf4j
@@ -18,9 +17,11 @@ import javax.transaction.Transactional;
 @SpringBootApplication
 public class LoginApplication implements CommandLineRunner {
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    private MemberRepository memberRepository;
 
+    @Autowired
+    private ItemRepository itemRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(LoginApplication.class, args);
@@ -35,7 +36,8 @@ public class LoginApplication implements CommandLineRunner {
 
     private void test1() {
         Member member3 = new Member(null, "yusiw", null);
-        em.persist(member3);
+        memberRepository.save(member3);
+        memberRepository.deleteAll();
     }
 
     private void test2() {
@@ -43,7 +45,7 @@ public class LoginApplication implements CommandLineRunner {
         for (int i = 0; i < 55; i++) {
             Member member3 = new Member(null, "yusiw", null);
             System.out.println("i = " + i);
-            em.persist(member3);
+            memberRepository.save(member3);
         }
     }
 }

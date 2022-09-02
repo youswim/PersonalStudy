@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>제품 수정</title>
+    <style>
+        #explain {
+            width:200px;
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+<h1>제품 수정 페이지</h1>
+<form action="/items/update">
+    제품 ID : <div th:text="${item.id}">item id</div>
+    <br><br>
+    제품 이름 : <input type="text" th:value="${item.name}" value="item name">
+    <br><br>
+    제품 가격 : <input type="text" th:text="${item.price}" value="item price">
+    <br><br>
+    제품 수량 : <input type="text" th:value="${item.quantity}" value="item quantity">
+    <br><br>
+    상세 설명 : <input id="explain" type="text" th:value="${item.explain}" value="item explain">
+    <input type="submit" value="수정">
+</form>
+</body>
+</html>

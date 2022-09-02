@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void clear() {
-        memberRepository.clear();
+        memberRepository.deleteAll();
     }
 
     private void memberOverlappingCheck(Member member) {
