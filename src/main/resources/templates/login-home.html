@@ -12,11 +12,31 @@
 <div th:if="${member}==null">
     <a href="/member/login">로그인</a>
 </div>
+<a href="/items/new"><button>상품 등록</button></a>
 <div th:if="${member}!=null">
     <form action="/member/logout" method="post">
         <input type="submit" value="로그아웃">
     </form>
 </div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>name</th>
+        <th>price</th>
+        <th>quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item, i : ${items}">
+        <td><a th:href="|/items/item-detail/${item.id}|" th:text="${item.id}"></a></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.quantity}"></td>
+    </tr>
+    </tbody>
+</table>
 
 <div th:if="${member!=null}and${member.grade == T(own.login.domain.Grade).ADMIN}">
     <table>

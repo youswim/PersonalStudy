@@ -81,14 +81,17 @@
   - 모든 주문은 주소를 가져야 하고, 주소정보는 주문 없이 존재할 수 없음 ( 양쪽의 전체참여 )
 
 ## 8. ItemV1
-- ItemRepository 구현
-- ItemService 구현
-- ItemController 구현 중
-- Item 등록 조회 수정 (삭제) 페이지 구현
+- Item CRUD 기능
 
 ## 앞으로 할 일
 - ITEM과 MEMBER의 관계 만들기 (ITEM을 등록한 MEMBER가 누구인지. ITEM수정 권한의 확인을 위해서 필요한 작업)
 - explain field의 box 엉망. 수정하기
+- 현재는 제품 리스트를 출력할 때, explain도 같이 가져옴(쓰지는 않음)
+이렇게 하면 제품의 수가 많아질수록 시스템에 부하가 생길 것임.
+여러 제품을 불러올 때에는 explain을 떼고 가져오도록 만들기
+- 없는 item번호로 들어오면 발생하는 오류 해결하기
+- item의 Validation만들기
+- 상품의 등록과 수정 삭제에 인가 과정 추가하기
 - 다른 사람의 로그인 코드와 내 코드 비교 & 수정
 - repository 의 mock 테스트 만들어보기
 - spring security, jwt

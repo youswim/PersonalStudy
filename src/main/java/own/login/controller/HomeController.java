@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import own.login.domain.Grade;
 import own.login.domain.Member;
 import own.login.form.MemberLoginForm;
+import own.login.service.ItemService;
 import own.login.service.MemberService;
 import own.login.session.SessionConst;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 public class HomeController {
 
     private final MemberService memberService;
+    private final ItemService itemService;
 
     @GetMapping("/")
     public String loginHome(
@@ -38,10 +40,10 @@ public class HomeController {
 //        }
 //        Member member = (Member) inputFlashMap.get("member");
         model.addAttribute("member", member);
+        model.addAttribute("items", itemService.findAll());
         if (member != null && member.getGrade() == Grade.ADMIN) {
             model.addAttribute("members", memberService.findAll());
         }
-        System.out.println("member = " + member);
         return "login-home";
     }
     @GetMapping("/index")

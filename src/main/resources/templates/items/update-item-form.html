@@ -12,16 +12,17 @@
 </head>
 <body>
 <h1>제품 수정 페이지</h1>
-<form action="/items/update">
+<form action="/items/update/" method="post">
     제품 ID : <div th:text="${item.id}">item id</div>
+    <input type="hidden" name="id" th:value="${item.id}">
     <br><br>
-    제품 이름 : <input type="text" th:value="${item.name}" value="item name">
+    제품 이름 : <input type="text" name="name" th:value="${item.name}" value="item name">
     <br><br>
-    제품 가격 : <input type="text" th:text="${item.price}" value="item price">
+    제품 가격 : <input type="text" name="price" th:value="${item.price}" value="item price">
     <br><br>
-    제품 수량 : <input type="text" th:value="${item.quantity}" value="item quantity">
+    제품 수량 : <input type="text" name="quantity" th:value="${item.quantity}" value="item quantity">
     <br><br>
-    상세 설명 : <input id="explain" type="text" th:value="${item.explain}" value="item explain">
+    상세 설명 : <input id="explain" name="explain" type="text" th:value="${item.explain}" value="item explain">
     <input type="submit" value="수정">
 </form>
 </body>

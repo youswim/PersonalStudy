@@ -30,7 +30,7 @@ public class LoginApplication implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        test1();
+//        test1();
 //        test2();
     }
 

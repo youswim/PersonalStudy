@@ -16,7 +16,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("/item-detail/{id}")
-    public String itemDetail(@PathVariable Long id) {
+    public String itemDetail(@PathVariable Long id, Model model) {
+        model.addAttribute("item", itemService.findById(id));
         return "/items/item-detail";
     }
 
@@ -41,8 +42,15 @@ public class ItemController {
 
     @PostMapping("/update/")
     public String updateItemForm(@ModelAttribute Item item, RedirectAttributes ra) {
+        System.out.println("ItemController.updateItemForm");
         itemService.update(item);
         ra.addFlashAttribute("item", item);
         return "redirect:/items/item-detail/" + item.getId();
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteItem(@PathVariable Long id) {
+        itemService.delete(id);
+        return "redirect:/";
     }
 }
