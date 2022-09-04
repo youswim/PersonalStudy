@@ -1,5 +1,5 @@
 # 쇼핑몰 만들기
-
+사용자 누구나 상품 등록, 구매 가능
 ## 쇼핑몰 기능
 - 로그인(일반, 관리자)
 - 마이페이지(일반)
@@ -80,8 +80,21 @@
   - 한개의 주문은 한개의 주소만 가질 수 있음 (ORDER : DELIVERY = 1 : 1)
   - 모든 주문은 주소를 가져야 하고, 주소정보는 주문 없이 존재할 수 없음 ( 양쪽의 전체참여 )
 
-## 8. ItemV1
+## 8. itemV1
 - Item CRUD 기능
+
+## 9. itemV2
+- 테이블 수정
+
+![loginV7_diagram](./imgs/itemV2_diagram.PNG)
+### 9-1 테이블 수정 내용
+- ITEM - MEMBER 관계 추가.  
+ITEM을 어떤 MEMBER가 등록했는지가 필요함. ( MEMBER별 조회, ITEM CRUD권한 )
+- ORDER - DELIVERY 관계를 비식별관계에서 식별관계로 수정.  
+DELIVERY는 ORDER가 존재해야만 존재할 수 있음
+- DELIVERY의 PK를 ORDER_ID로 수정.  
+가정에 의해, DELIVERY는 ORDER와 ID를 공유해도 문제 없음.
+- 이전의 ERD에 나타내지 않았던 부분참여 전체참여를 표시.
 
 ## 앞으로 할 일
 - ITEM과 MEMBER의 관계 만들기 (ITEM을 등록한 MEMBER가 누구인지. ITEM수정 권한의 확인을 위해서 필요한 작업)
@@ -89,6 +102,8 @@
 - 현재는 제품 리스트를 출력할 때, explain도 같이 가져옴(쓰지는 않음)
 이렇게 하면 제품의 수가 많아질수록 시스템에 부하가 생길 것임.
 여러 제품을 불러올 때에는 explain을 떼고 가져오도록 만들기
+- JPA 식별관계 코드 만들기 ( ORDER - DELIVERY )
+- 상품 이미지 업로드 구현
 - 없는 item번호로 들어오면 발생하는 오류 해결하기
 - item의 Validation만들기
 - 상품의 등록과 수정 삭제에 인가 과정 추가하기
@@ -133,3 +148,7 @@ https://minchul-son.tistory.com/546
   https://www.inflearn.com/questions/26902 참고
 
 - RedirectAttribute로 넘긴 인스턴스는 Get 컨트롤러의 Model에 자동으로 담긴다.
+
+- ERD에서 부분참여를 하는 해당 엔티티쪽에 동그라미 기호를 두는 것이 아닌, 상대방 엔티티 쪽에 동그라미를 둔다.
+- 복합 키일때, JPA매핑 방법  
+(https://velog.io/@sa1341/JPA-%EB%B3%B5%ED%95%A9-%ED%82%A4%EA%B3%BC-%EC%8B%9D%EB%B3%84-%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91)

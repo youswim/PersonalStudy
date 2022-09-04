@@ -3,6 +3,7 @@ package own.login.domain;
 import javax.persistence.*;
 
 @Entity
+@IdClass(Order.class)
 @SequenceGenerator(
         name = "DELIVERY_SEQ_GENERATOR", sequenceName = "DELIVERY_SEQ")
 public class Delivery {

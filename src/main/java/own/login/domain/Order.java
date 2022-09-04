@@ -1,6 +1,7 @@
 package own.login.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
         name = "ORDER_SEQ_GENERATOR",
         sequenceName = "ORDER_SEQ"
 )
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDER_SEQ_GENERATOR")
